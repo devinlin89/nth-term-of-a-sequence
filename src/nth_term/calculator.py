@@ -1,12 +1,13 @@
 from .detectors import detect_sequence_type
+from .formatting import format_formula
 from .formulas import (
-    Formula,
     calculate_cubic_formula,
     calculate_exponential_formula,
     calculate_linear_formula,
     calculate_quadratic_formula,
 )
 from .models import (
+    Formula,
     NthTermResult,
     SequenceData,
     SequenceType,
@@ -51,6 +52,6 @@ def find_nth_term(sequence: SequenceData) -> NthTermResult:
 
     return NthTermResult(
         sequence_type=sequence_type,
-        formula=str(formula),
+        formula=format_formula(formula),
         coefficients=formula.coefficients,
     )

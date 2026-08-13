@@ -1,19 +1,27 @@
 from fractions import Fraction
 
+from .models import (
+    CubicFormula,
+    ExponentialFormula,
+    Formula,
+    LinearFormula,
+    QuadraticFormula,
+)
 
-def format_fraction(value: Fraction) -> str:
+
+def _format_fraction(value: Fraction) -> str:
     """Format a fraction as a LaTeX number."""
 
     if value.denominator == 1:
         return str(value.numerator)
 
-    sign = "-" if value < 0 else ""
-    numerator = abs(value.numerator)
+    if value.numerator < 0:
+        return f"-\\frac{{{abs(value.numerator)}}}{{{value.denominator}}}"
 
-    return f"{sign}\\frac{{{numerator}}}{{{value.denominator}}}"
+    return f"\\frac{{{value.numerator}}}{{{value.denominator}}}"
 
 
-def format_term(coefficient: Fraction, variable: str) -> str:
+def _format_term(coefficient: Fraction, variable: str) -> str:
     """Format a coefficient-variable term as LaTeX."""
 
     if coefficient == 0:
@@ -25,31 +33,80 @@ def format_term(coefficient: Fraction, variable: str) -> str:
     if coefficient == -1:
         return f"-{variable}"
 
-    return f"{format_fraction(coefficient)}{variable}"
+    return f"{_format_fraction(coefficient)}{variable}"
 
 
-def format_signed_term(
-    coefficient: Fraction,
-    variable: str,
-) -> str:
+def _format_signed_term(coefficient: Fraction, variable: str) -> str:
     """Format a non-leading coefficient-variable term as LaTeX."""
 
     if coefficient == 0:
         return ""
 
     sign = "+" if coefficient > 0 else "-"
-    term = format_term(abs(coefficient), variable)
+    magnitude = abs(coefficient)
+
+    if magnitude == 1:
+        term = variable
+    else:
+        term = f"{_format_fraction(magnitude)}{variable}"
 
     return f"{sign} {term}"
 
 
-def format_signed_constant(coefficient: Fraction) -> str:
+def _format_signed_constant(coefficient: Fraction) -> str:
     """Format a non-leading constant as LaTeX."""
 
     if coefficient == 0:
         return ""
 
     sign = "+" if coefficient > 0 else "-"
-    magnitude = format_fraction(abs(coefficient))
+    magnitude = abs(coefficient)
 
-    return f"{sign} {magnitude}"
+    return f"{sign} {_format_fraction(magnitude)}"
+
+
+def format_formula(formula: Formula) -> str:
+    """Format a sequence formula as a LaTeX expression.
+
+    Args:
+        formula: The formula to format.
+
+    Returns:
+        A LaTeX representation of the formula.
+    """
+
+    if isinstance(formula, LinearFormula):
+        terms = [
+            _format_term(formula.a, "n"),
+            _format_signed_constant(formula.b),
+        ]
+
+    elif isinstance(formula, QuadraticFormula):
+        terms = [
+            _format_term(formula.a, "n^2"),
+            _format_signed_term(formula.b, "n"),
+            _format_signed_constant(formula.c),
+        ]
+
+    elif isinstance(formula, CubicFormula):
+        terms = [
+            _format_term(formula.a, "n^3"),
+            _format_signed_term(formula.b, "n^2"),
+            _format_signed_term(formula.c, "n"),
+            _format_signed_constant(formula.d),
+        ]
+
+    elif isinstance(formula, ExponentialFormula):
+        terms = [
+            (
+                f"{_format_fraction(formula.a)}"
+                f"\\left({_format_fraction(formula.r)}\\right)^{{n-1}}"
+            )
+        ]
+
+    else:
+        raise TypeError(
+            f"Unsupported formula type: {type(formula).__name__}"
+        )
+
+    return " ".join(term for term in terms if term)

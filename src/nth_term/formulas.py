@@ -1,92 +1,11 @@
-from dataclasses import dataclass
-from fractions import Fraction
-
 from .differences import calculate_differences
-from .formatting import (
-    format_fraction,
-    format_signed_constant,
-    format_signed_term,
-    format_term,
+from .models import (
+    CubicFormula,
+    ExponentialFormula,
+    LinearFormula,
+    QuadraticFormula,
+    SequenceData,
 )
-from .models import SequenceData
-
-
-@dataclass(frozen=True)
-class LinearFormula:
-    a: Fraction
-    b: Fraction
-
-    @property
-    def coefficients(self) -> tuple[Fraction, ...]:
-        return (self.a, self.b)
-
-    def __str__(self) -> str:
-        terms = (
-            format_term(self.a, "n"),
-            format_signed_constant(self.b),
-        )
-
-        return " ".join(term for term in terms if term)
-
-
-@dataclass(frozen=True)
-class QuadraticFormula:
-    a: Fraction
-    b: Fraction
-    c: Fraction
-
-    @property
-    def coefficients(self) -> tuple[Fraction, ...]:
-        return (self.a, self.b, self.c)
-
-    def __str__(self) -> str:
-        terms = (
-            format_term(self.a, "n^2"),
-            format_signed_term(self.b, "n"),
-            format_signed_constant(self.c),
-        )
-
-        return " ".join(term for term in terms if term)
-
-
-@dataclass(frozen=True)
-class CubicFormula:
-    a: Fraction
-    b: Fraction
-    c: Fraction
-    d: Fraction
-
-    @property
-    def coefficients(self) -> tuple[Fraction, ...]:
-        return (self.a, self.b, self.c, self.d)
-
-    def __str__(self) -> str:
-        terms = (
-            format_term(self.a, "n^3"),
-            format_signed_term(self.b, "n^2"),
-            format_signed_term(self.c, "n"),
-            format_signed_constant(self.d),
-        )
-
-        return " ".join(term for term in terms if term)
-
-
-@dataclass(frozen=True)
-class ExponentialFormula:
-    a: Fraction
-    r: Fraction
-
-    @property
-    def coefficients(self) -> tuple[Fraction, ...]:
-        return (self.a, self.r)
-
-    def __str__(self) -> str:
-        return (
-            f"{format_fraction(self.a)}\\left({format_fraction(self.r)}\\right)^{{n-1}}"
-        )
-
-
-type Formula = LinearFormula | QuadraticFormula | CubicFormula | ExponentialFormula
 
 
 def calculate_linear_formula(

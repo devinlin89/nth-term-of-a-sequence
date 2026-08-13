@@ -29,3 +29,54 @@ class NthTermResult:
     sequence_type: SequenceType
     formula: str | None
     coefficients: tuple[Fraction, ...]
+
+
+@dataclass(frozen=True)
+class LinearFormula:
+    a: Fraction
+    b: Fraction
+
+    @property
+    def coefficients(self) -> tuple[Fraction, ...]:
+        return (self.a, self.b)
+
+
+@dataclass(frozen=True)
+class QuadraticFormula:
+    a: Fraction
+    b: Fraction
+    c: Fraction
+
+    @property
+    def coefficients(self) -> tuple[Fraction, ...]:
+        return (self.a, self.b, self.c)
+
+
+@dataclass(frozen=True)
+class CubicFormula:
+    a: Fraction
+    b: Fraction
+    c: Fraction
+    d: Fraction
+
+    @property
+    def coefficients(self) -> tuple[Fraction, ...]:
+        return (self.a, self.b, self.c, self.d)
+
+
+@dataclass(frozen=True)
+class ExponentialFormula:
+    a: Fraction
+    r: Fraction
+
+    @property
+    def coefficients(self) -> tuple[Fraction, ...]:
+        return (self.a, self.r)
+
+
+type Formula = (
+    LinearFormula
+    | QuadraticFormula
+    | CubicFormula
+    | ExponentialFormula
+)

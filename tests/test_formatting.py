@@ -2,93 +2,51 @@ from fractions import Fraction
 
 import pytest
 
-from nth_term.formatting import (
-    format_fraction,
-    format_signed_constant,
-    format_signed_term,
-    format_term,
+from nth_term.formatting import format_formula
+from nth_term.models import (
+    CubicFormula,
+    ExponentialFormula,
+    LinearFormula,
+    QuadraticFormula,
 )
 
 
 @pytest.mark.parametrize(
-    ("value", "expected"),
+    ("formula", "expected"),
     [
-        (Fraction(0), "0"),
-        (Fraction(1), "1"),
-        (Fraction(-1), "-1"),
-        (Fraction(2), "2"),
-        (Fraction(-2), "-2"),
-        (Fraction(1, 2), r"\frac{1}{2}"),
-        (Fraction(-1, 2), r"-\frac{1}{2}"),
-        (Fraction(3, 4), r"\frac{3}{4}"),
-        (Fraction(-5, 3), r"-\frac{5}{3}"),
+        (
+            LinearFormula(Fraction(3), Fraction(-1)),
+            r"3n - 1",
+        ),
+        (
+            LinearFormula(Fraction(-2), Fraction(5)),
+            r"-2n + 5",
+        ),
+        (
+            QuadraticFormula(
+                Fraction(2),
+                Fraction(3),
+                Fraction(1),
+            ),
+            r"2n^2 + 3n + 1",
+        ),
+        (
+            CubicFormula(
+                Fraction(2),
+                Fraction(-1),
+                Fraction(3),
+                Fraction(-2),
+            ),
+            r"2n^3 - n^2 + 3n - 2",
+        ),
+        (
+            ExponentialFormula(
+                Fraction(3),
+                Fraction(2),
+            ),
+            r"3\left(2\right)^{n-1}",
+        ),
     ],
 )
-def test_format_fraction(
-    value: Fraction,
-    expected: str,
-):
-    assert format_fraction(value) == expected
-
-
-@pytest.mark.parametrize(
-    ("coefficient", "variable", "expected"),
-    [
-        (Fraction(0), "n", ""),
-        (Fraction(1), "n", "n"),
-        (Fraction(-1), "n", "-n"),
-        (Fraction(2), "n", "2n"),
-        (Fraction(-2), "n", "-2n"),
-        (Fraction(1, 2), "n", r"\frac{1}{2}n"),
-        (Fraction(-3, 4), "n", r"-\frac{3}{4}n"),
-        (Fraction(2), "n^2", "2n^2"),
-        (Fraction(-1), "n^3", "-n^3"),
-    ],
-)
-def test_format_term(
-    coefficient: Fraction,
-    variable: str,
-    expected: str,
-):
-    assert format_term(coefficient, variable) == expected
-
-
-@pytest.mark.parametrize(
-    ("coefficient", "variable", "expected"),
-    [
-        (Fraction(0), "n", ""),
-        (Fraction(1), "n", "+ n"),
-        (Fraction(-1), "n", "- n"),
-        (Fraction(2), "n", "+ 2n"),
-        (Fraction(-2), "n", "- 2n"),
-        (Fraction(1, 2), "n", r"+ \frac{1}{2}n"),
-        (Fraction(-3, 4), "n", r"- \frac{3}{4}n"),
-        (Fraction(1), "n^2", "+ n^2"),
-        (Fraction(-1), "n^3", "- n^3"),
-    ],
-)
-def test_format_signed_term(
-    coefficient: Fraction,
-    variable: str,
-    expected: str,
-):
-    assert format_signed_term(coefficient, variable) == expected
-
-
-@pytest.mark.parametrize(
-    ("coefficient", "expected"),
-    [
-        (Fraction(0), ""),
-        (Fraction(1), "+ 1"),
-        (Fraction(-1), "- 1"),
-        (Fraction(2), "+ 2"),
-        (Fraction(-2), "- 2"),
-        (Fraction(1, 2), r"+ \frac{1}{2}"),
-        (Fraction(-3, 4), r"- \frac{3}{4}"),
-    ],
-)
-def test_format_signed_constant(
-    coefficient: Fraction,
-    expected: str,
-):
-    assert format_signed_constant(coefficient) == expected
+def test_format_formula(formula, expected: str):
+    assert format_formula(formula) == expected
