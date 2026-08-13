@@ -1,62 +1,14 @@
 from dataclasses import dataclass
 from fractions import Fraction
-from itertools import pairwise
 
 from .differences import calculate_differences
+from .formatting import (
+    format_fraction,
+    format_signed_constant,
+    format_signed_term,
+    format_term,
+)
 from .models import SequenceData
-
-
-def _format_fraction(value: Fraction) -> str:
-    """Format a fraction as a LaTeX number."""
-
-    if value.denominator == 1:
-        return str(value.numerator)
-
-    return f"\\frac{{{value.numerator}}}{{{value.denominator}}}"
-
-
-def _format_term(coefficient: Fraction, variable: str) -> str:
-    """Format a coefficient-variable term as LaTeX."""
-
-    if coefficient == 0:
-        return ""
-
-    if coefficient == 1:
-        return variable
-
-    if coefficient == -1:
-        return f"-{variable}"
-
-    return f"{_format_fraction(coefficient)}{variable}"
-
-
-def _format_signed_term(coefficient: Fraction, variable: str) -> str:
-    """Format a non-leading coefficient-variable term as LaTeX."""
-
-    if coefficient == 0:
-        return ""
-
-    sign = "+" if coefficient > 0 else "-"
-    magnitude = abs(coefficient)
-
-    if magnitude == 1:
-        term = variable
-    else:
-        term = f"{_format_fraction(magnitude)}{variable}"
-
-    return f"{sign} {term}"
-
-
-def _format_signed_constant(coefficient: Fraction) -> str:
-    """Format a non-leading constant as LaTeX."""
-
-    if coefficient == 0:
-        return ""
-
-    sign = "+" if coefficient > 0 else "-"
-    magnitude = abs(coefficient)
-
-    return f"{sign} {_format_fraction(magnitude)}"
 
 
 @dataclass(frozen=True)
@@ -69,10 +21,10 @@ class LinearFormula:
         return (self.a, self.b)
 
     def __str__(self) -> str:
-        terms = [
-            _format_term(self.a, "n"),
-            _format_signed_constant(self.b),
-        ]
+        terms = (
+            format_term(self.a, "n"),
+            format_signed_constant(self.b),
+        )
 
         return " ".join(term for term in terms if term)
 
@@ -88,11 +40,11 @@ class QuadraticFormula:
         return (self.a, self.b, self.c)
 
     def __str__(self) -> str:
-        terms = [
-            _format_term(self.a, "n^2"),
-            _format_signed_term(self.b, "n"),
-            _format_signed_constant(self.c),
-        ]
+        terms = (
+            format_term(self.a, "n^2"),
+            format_signed_term(self.b, "n"),
+            format_signed_constant(self.c),
+        )
 
         return " ".join(term for term in terms if term)
 
@@ -109,12 +61,12 @@ class CubicFormula:
         return (self.a, self.b, self.c, self.d)
 
     def __str__(self) -> str:
-        terms = [
-            _format_term(self.a, "n^3"),
-            _format_signed_term(self.b, "n^2"),
-            _format_signed_term(self.c, "n"),
-            _format_signed_constant(self.d),
-        ]
+        terms = (
+            format_term(self.a, "n^3"),
+            format_signed_term(self.b, "n^2"),
+            format_signed_term(self.c, "n"),
+            format_signed_constant(self.d),
+        )
 
         return " ".join(term for term in terms if term)
 
@@ -130,8 +82,8 @@ class ExponentialFormula:
 
     def __str__(self) -> str:
         return (
-            f"{_format_fraction(self.a)}"
-            f"({_format_fraction(self.r)})^{{n-1}}"
+            f"{format_fraction(self.a)}"
+            f"\\left({format_fraction(self.r)}\\right)^{{n-1}}"
         )
 
 
@@ -207,12 +159,7 @@ def calculate_exponential_formula(
     """Calculate the nth-term formula for an exponential sequence."""
 
     first_term = sequence[0]
-
-    ratios = tuple(
-        current / previous
-        for previous, current in pairwise(sequence)
-    )
-    common_ratio = ratios[0]
+    common_ratio = sequence[1] / sequence[0]
 
     return ExponentialFormula(
         a=first_term,

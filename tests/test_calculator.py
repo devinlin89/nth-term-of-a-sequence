@@ -128,7 +128,7 @@ def test_find_exponential_formula():
 
     result = find_nth_term(sequence)
 
-    assert result.formula == r"3(2)^{n-1}"
+    assert result.formula == r"3\left(2\right)^{n-1}"
     assert result.coefficients == (
         Fraction(3),
         Fraction(2),
