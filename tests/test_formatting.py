@@ -4,9 +4,9 @@ import pytest
 
 from nth_term.formatting import format_formula
 from nth_term.models import (
+    ArithmeticFormula,
     CubicFormula,
-    ExponentialFormula,
-    LinearFormula,
+    GeometricFormula,
     QuadraticFormula,
 )
 
@@ -15,11 +15,11 @@ from nth_term.models import (
     ("formula", "expected"),
     [
         (
-            LinearFormula(Fraction(3), Fraction(-1)),
+            ArithmeticFormula(Fraction(3), Fraction(-1)),
             r"3n - 1",
         ),
         (
-            LinearFormula(Fraction(-2), Fraction(5)),
+            ArithmeticFormula(Fraction(-2), Fraction(5)),
             r"-2n + 5",
         ),
         (
@@ -40,7 +40,7 @@ from nth_term.models import (
             r"2n^3 - n^2 + 3n - 2",
         ),
         (
-            ExponentialFormula(
+            GeometricFormula(
                 Fraction(3),
                 Fraction(2),
             ),

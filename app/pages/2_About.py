@@ -19,8 +19,8 @@ st.header("Background")
 
 st.write(
     "This project was originally inspired by sequence patterns covered "
-    "in Grade 9 mathematics. While learning how linear, quadratic, cubic, "
-    "and exponential sequences could be identified and represented using "
+    "in Grade 9 mathematics. While learning how arithmetic, quadratic, cubic, "
+    "and geometric sequences could be identified and represented using "
     "nth-term formulas, I became interested in whether the process could "
     "be automated with code."
 )
@@ -40,7 +40,7 @@ st.markdown(
     """
     The calculator currently supports four types of sequences:
 
-    - **Linear:**
+    - **Arithmetic:**
       $$U_n = an + b$$
 
     - **Quadratic:**
@@ -49,7 +49,7 @@ st.markdown(
     - **Cubic:**
       $$U_n = an^3 + bn^2 + cn + d$$
 
-    - **Exponential:**
+    - **Geometric:**
       $$U_n = ar^{n-1}$$
     """
 )
@@ -69,8 +69,8 @@ st.write(
 st.header("Limitations")
 
 st.write(
-    "The calculator only recognizes linear, quadratic, cubic, and "
-    "exponential sequences. A sequence that does not match one of these "
+    "The calculator only recognizes arithmetic, quadratic, cubic, and "
+    "geometric sequences. A sequence that does not match one of these "
     "patterns may be reported as unsupported, even if another mathematical "
     "rule could describe it."
 )
@@ -78,16 +78,12 @@ st.write(
 
 st.header("Technology")
 
-st.write(
-    "Built with Python and Streamlit."
-)
+st.write("Built with Python and Streamlit.")
 
 
 st.header("Credits")
 
-st.write(
-    "Created by Devin Lin as a personal programming and mathematics project."
-)
+st.write("Created by Devin Lin as a personal programming and mathematics project.")
 
 col1, col2, col3 = st.columns(3)
 

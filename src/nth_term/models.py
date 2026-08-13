@@ -7,10 +7,10 @@ type SequenceData = Sequence[Fraction]
 
 
 class SequenceType(Enum):
-    LINEAR = "linear"
+    ARITHMETIC = "arithmetic"
     QUADRATIC = "quadratic"
     CUBIC = "cubic"
-    EXPONENTIAL = "exponential"
+    GEOMETRIC = "geometric"
     UNKNOWN = "unknown"
 
 
@@ -32,7 +32,7 @@ class NthTermResult:
 
 
 @dataclass(frozen=True)
-class LinearFormula:
+class ArithmeticFormula:
     a: Fraction
     b: Fraction
 
@@ -65,7 +65,7 @@ class CubicFormula:
 
 
 @dataclass(frozen=True)
-class ExponentialFormula:
+class GeometricFormula:
     a: Fraction
     r: Fraction
 
@@ -74,9 +74,4 @@ class ExponentialFormula:
         return (self.a, self.r)
 
 
-type Formula = (
-    LinearFormula
-    | QuadraticFormula
-    | CubicFormula
-    | ExponentialFormula
-)
+type Formula = ArithmeticFormula | QuadraticFormula | CubicFormula | GeometricFormula

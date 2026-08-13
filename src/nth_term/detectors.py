@@ -7,10 +7,10 @@ from .models import (
 )
 
 
-def _is_linear(sequence: SequenceData) -> bool:
+def _is_arithmetic(sequence: SequenceData) -> bool:
     """Return whether the sequence has a constant common difference."""
 
-    # At least three terms are needed to establish a linear pattern
+    # At least three terms are needed to establish a arithmetic pattern
     if len(sequence) < 3:
         return False
 
@@ -52,7 +52,7 @@ def _is_cubic(sequence: SequenceData) -> bool:
     return all(difference == common_difference for difference in third_differences)
 
 
-def _is_exponential(sequence: SequenceData) -> bool:
+def _is_geometric(sequence: SequenceData) -> bool:
     """Return whether the sequence has a constant common ratio."""
 
     # At least three terms are needed to establish a common ratio
@@ -78,11 +78,11 @@ def detect_sequence_type(sequence: SequenceData) -> SequenceType:
 
     Returns:
         SequenceType: The detected type of the sequence
-            (LINEAR, QUADRATIC, CUBIC, EXPONENTIAL, or UNKNOWN)
+            (ARITHMETIC, QUADRATIC, CUBIC, GEOMETRIC, or UNKNOWN)
     """
 
-    if _is_linear(sequence):
-        return SequenceType.LINEAR
+    if _is_arithmetic(sequence):
+        return SequenceType.ARITHMETIC
 
     if _is_quadratic(sequence):
         return SequenceType.QUADRATIC
@@ -90,7 +90,7 @@ def detect_sequence_type(sequence: SequenceData) -> SequenceType:
     if _is_cubic(sequence):
         return SequenceType.CUBIC
 
-    if _is_exponential(sequence):
-        return SequenceType.EXPONENTIAL
+    if _is_geometric(sequence):
+        return SequenceType.GEOMETRIC
 
     return SequenceType.UNKNOWN

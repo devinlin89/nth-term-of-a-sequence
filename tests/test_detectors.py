@@ -17,7 +17,7 @@ from nth_term.models import SequenceType
                 Fraction(11),
                 Fraction(14),
             ),
-            SequenceType.LINEAR,
+            SequenceType.ARITHMETIC,
         ),
         (
             (
@@ -27,7 +27,7 @@ from nth_term.models import SequenceType
                 Fraction(1),
                 Fraction(-2),
             ),
-            SequenceType.LINEAR,
+            SequenceType.ARITHMETIC,
         ),
         (
             (
@@ -37,7 +37,7 @@ from nth_term.models import SequenceType
                 Fraction(4),
                 Fraction(7),
             ),
-            SequenceType.LINEAR,
+            SequenceType.ARITHMETIC,
         ),
         (
             (
@@ -87,7 +87,7 @@ from nth_term.models import SequenceType
                 Fraction(24),
                 Fraction(48),
             ),
-            SequenceType.EXPONENTIAL,
+            SequenceType.GEOMETRIC,
         ),
         (
             (
@@ -97,7 +97,7 @@ from nth_term.models import SequenceType
                 Fraction(4),
                 Fraction(2),
             ),
-            SequenceType.EXPONENTIAL,
+            SequenceType.GEOMETRIC,
         ),
     ],
 )
@@ -139,10 +139,10 @@ def test_constant_sequence():
         Fraction(5),
     )
 
-    assert detect_sequence_type(sequence) == SequenceType.LINEAR
+    assert detect_sequence_type(sequence) == SequenceType.ARITHMETIC
 
 
-def test_linear_sequence_with_zero_difference():
+def test_arithmetic_sequence_with_zero_difference():
     sequence = (
         Fraction(0),
         Fraction(0),
@@ -150,10 +150,10 @@ def test_linear_sequence_with_zero_difference():
         Fraction(0),
     )
 
-    assert detect_sequence_type(sequence) == SequenceType.LINEAR
+    assert detect_sequence_type(sequence) == SequenceType.ARITHMETIC
 
 
-def test_exponential_sequence_with_fractional_ratio():
+def test_geometric_sequence_with_fractional_ratio():
     sequence = (
         Fraction(16),
         Fraction(8),
@@ -161,10 +161,10 @@ def test_exponential_sequence_with_fractional_ratio():
         Fraction(2),
     )
 
-    assert detect_sequence_type(sequence) == SequenceType.EXPONENTIAL
+    assert detect_sequence_type(sequence) == SequenceType.GEOMETRIC
 
 
-def test_exponential_sequence_with_negative_ratio():
+def test_geometric_sequence_with_negative_ratio():
     sequence = (
         Fraction(2),
         Fraction(-4),
@@ -172,4 +172,4 @@ def test_exponential_sequence_with_negative_ratio():
         Fraction(-16),
     )
 
-    assert detect_sequence_type(sequence) == SequenceType.EXPONENTIAL
+    assert detect_sequence_type(sequence) == SequenceType.GEOMETRIC

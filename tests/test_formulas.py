@@ -3,13 +3,13 @@ from fractions import Fraction
 import pytest
 
 from nth_term.formulas import (
+    ArithmeticFormula,
     CubicFormula,
-    ExponentialFormula,
-    LinearFormula,
+    GeometricFormula,
     QuadraticFormula,
+    calculate_arithmetic_formula,
     calculate_cubic_formula,
-    calculate_exponential_formula,
-    calculate_linear_formula,
+    calculate_geometric_formula,
     calculate_quadratic_formula,
 )
 
@@ -39,12 +39,12 @@ from nth_term.formulas import (
         ),
     ],
 )
-def test_calculate_linear_formula(
+def test_calculate_arithmetic_formula(
     sequence: tuple[Fraction, ...],
     a: Fraction,
     b: Fraction,
 ):
-    formula = calculate_linear_formula(sequence)
+    formula = calculate_arithmetic_formula(sequence)
 
     assert formula.a == a
     assert formula.b == b
@@ -179,19 +179,19 @@ def test_calculate_cubic_formula(
         ),
     ],
 )
-def test_calculate_exponential_formula(
+def test_calculate_geometric_formula(
     sequence: tuple[Fraction, ...],
     a: Fraction,
     r: Fraction,
 ):
-    formula = calculate_exponential_formula(sequence)
+    formula = calculate_geometric_formula(sequence)
 
     assert formula.a == a
     assert formula.r == r
 
 
-def test_linear_formula_coefficients():
-    formula = LinearFormula(
+def test_arithmetic_formula_coefficients():
+    formula = ArithmeticFormula(
         a=Fraction(3),
         b=Fraction(-1),
     )
@@ -232,8 +232,8 @@ def test_cubic_formula_coefficients():
     )
 
 
-def test_exponential_formula_coefficients():
-    formula = ExponentialFormula(
+def test_geometric_formula_coefficients():
+    formula = GeometricFormula(
         a=Fraction(3),
         r=Fraction(2),
     )

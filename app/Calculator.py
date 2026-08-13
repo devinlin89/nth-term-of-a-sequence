@@ -40,9 +40,7 @@ def _display_summary(
     with col1:
         with st.container(border=True, key="sequence-type-card"):
             st.caption("Sequence Type")
-            st.markdown(
-                f"### {sequence_type.value.capitalize()}"
-            )
+            st.markdown(f"### {sequence_type.value.capitalize()}")
 
     with col2:
         with st.container(border=True, key="general-form-card"):
@@ -130,8 +128,8 @@ def _calculate_and_display(sequence_input: str) -> None:
 
             Possible reasons:
             - The sequence is too short to determine its type.
-            - The sequence does not follow a linear, quadratic, cubic,
-            or exponential pattern.
+            - The sequence does not follow a arithmetic, quadratic, cubic,
+            or geometric pattern.
             - The sequence contains values that do not satisfy the
             requirements of the supported sequence types.
             """
@@ -154,8 +152,7 @@ def main() -> None:
 
     st.title("Nth Term of a Sequence")
     st.write(
-        "Enter a sequence to determine its type and calculate "
-        "its nth-term formula."
+        "Enter a sequence to determine its type and calculate its nth-term formula."
     )
 
     sequence_input = st.text_input(

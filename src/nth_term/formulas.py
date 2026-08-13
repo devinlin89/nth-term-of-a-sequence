@@ -1,38 +1,38 @@
 from .differences import calculate_differences
 from .models import (
+    ArithmeticFormula,
     CubicFormula,
-    ExponentialFormula,
-    LinearFormula,
+    GeometricFormula,
     QuadraticFormula,
     SequenceData,
     SequenceType,
 )
 
 GENERAL_FORMULAS: dict[SequenceType, str] = {
-    SequenceType.LINEAR: r"U_n = an + b",
+    SequenceType.ARITHMETIC: r"U_n = an + b",
     SequenceType.QUADRATIC: r"U_n = an^2 + bn + c",
     SequenceType.CUBIC: r"U_n = an^3 + bn^2 + cn + d",
-    SequenceType.EXPONENTIAL: r"U_n = ar^{n-1}",
+    SequenceType.GEOMETRIC: r"U_n = ar^{n-1}",
 }
 
 COEFFICIENT_NAMES: dict[SequenceType, tuple[str, ...]] = {
-    SequenceType.LINEAR: ("a", "b"),
+    SequenceType.ARITHMETIC: ("a", "b"),
     SequenceType.QUADRATIC: ("a", "b", "c"),
     SequenceType.CUBIC: ("a", "b", "c", "d"),
-    SequenceType.EXPONENTIAL: ("a", "r"),
+    SequenceType.GEOMETRIC: ("a", "r"),
 }
 
 
-def calculate_linear_formula(
+def calculate_arithmetic_formula(
     sequence: SequenceData,
-) -> LinearFormula:
-    """Calculate the nth-term formula for a linear sequence.
+) -> ArithmeticFormula:
+    """Calculate the nth-term formula for a arithmetic sequence.
 
     Args:
         sequence (SequenceData): A sequence with constant first differences.
 
     Returns:
-        LinearFormula: The coefficients of the linear nth-term formula.
+        ArithmeticFormula: The coefficients of the arithmetic nth-term formula.
     """
 
     differences = calculate_differences(sequence)
@@ -41,7 +41,7 @@ def calculate_linear_formula(
     first_term = sequence[0]
     b = first_term - common_difference
 
-    return LinearFormula(
+    return ArithmeticFormula(
         a=common_difference,
         b=b,
     )
@@ -102,22 +102,22 @@ def calculate_cubic_formula(
     )
 
 
-def calculate_exponential_formula(
+def calculate_geometric_formula(
     sequence: SequenceData,
-) -> ExponentialFormula:
-    """Calculate the nth-term formula for an exponential sequence.
+) -> GeometricFormula:
+    """Calculate the nth-term formula for an geometric sequence.
 
     Args:
         sequence (SequenceData): A sequence with constant common ratio.
 
     Returns:
-        ExponentialFormula: The coefficients of the exponential nth-term formula.
+        GeometricFormula: The coefficients of the geometric nth-term formula.
     """
 
     first_term = sequence[0]
     common_ratio = sequence[1] / sequence[0]
 
-    return ExponentialFormula(
+    return GeometricFormula(
         a=first_term,
         r=common_ratio,
     )

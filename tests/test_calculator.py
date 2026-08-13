@@ -17,7 +17,7 @@ from nth_term.models import SequenceType
                 Fraction(11),
                 Fraction(14),
             ),
-            SequenceType.LINEAR,
+            SequenceType.ARITHMETIC,
         ),
         (
             (
@@ -47,7 +47,7 @@ from nth_term.models import SequenceType
                 Fraction(24),
                 Fraction(48),
             ),
-            SequenceType.EXPONENTIAL,
+            SequenceType.GEOMETRIC,
         ),
     ],
 )
@@ -60,7 +60,7 @@ def test_find_nth_term(
     assert result.sequence_type == expected_type
 
 
-def test_find_linear_formula():
+def test_find_arithmetic_formula():
     sequence = (
         Fraction(2),
         Fraction(5),
@@ -117,7 +117,7 @@ def test_find_cubic_formula():
     )
 
 
-def test_find_exponential_formula():
+def test_find_geometric_formula():
     sequence = (
         Fraction(3),
         Fraction(6),

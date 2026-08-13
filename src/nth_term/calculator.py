@@ -1,9 +1,9 @@
 from .detectors import detect_sequence_type
 from .formatting import format_formula
 from .formulas import (
+    calculate_arithmetic_formula,
     calculate_cubic_formula,
-    calculate_exponential_formula,
-    calculate_linear_formula,
+    calculate_geometric_formula,
     calculate_quadratic_formula,
 )
 from .models import (
@@ -31,8 +31,8 @@ def find_nth_term(sequence: SequenceData) -> NthTermResult:
     formula: Formula
 
     match sequence_type:
-        case SequenceType.LINEAR:
-            formula = calculate_linear_formula(sequence)
+        case SequenceType.ARITHMETIC:
+            formula = calculate_arithmetic_formula(sequence)
 
         case SequenceType.QUADRATIC:
             formula = calculate_quadratic_formula(sequence)
@@ -40,8 +40,8 @@ def find_nth_term(sequence: SequenceData) -> NthTermResult:
         case SequenceType.CUBIC:
             formula = calculate_cubic_formula(sequence)
 
-        case SequenceType.EXPONENTIAL:
-            formula = calculate_exponential_formula(sequence)
+        case SequenceType.GEOMETRIC:
+            formula = calculate_geometric_formula(sequence)
 
         case SequenceType.UNKNOWN:
             return NthTermResult(

@@ -1,10 +1,10 @@
 from fractions import Fraction
 
 from .models import (
+    ArithmeticFormula,
     CubicFormula,
-    ExponentialFormula,
     Formula,
-    LinearFormula,
+    GeometricFormula,
     QuadraticFormula,
 )
 
@@ -75,7 +75,7 @@ def format_formula(formula: Formula) -> str:
         A LaTeX representation of the formula.
     """
 
-    if isinstance(formula, LinearFormula):
+    if isinstance(formula, ArithmeticFormula):
         terms = [
             _format_term(formula.a, "n"),
             _format_signed_constant(formula.b),
@@ -96,7 +96,7 @@ def format_formula(formula: Formula) -> str:
             _format_signed_constant(formula.d),
         ]
 
-    elif isinstance(formula, ExponentialFormula):
+    elif isinstance(formula, GeometricFormula):
         terms = [
             (
                 f"{_format_fraction(formula.a)}"
@@ -105,8 +105,6 @@ def format_formula(formula: Formula) -> str:
         ]
 
     else:
-        raise TypeError(
-            f"Unsupported formula type: {type(formula).__name__}"
-        )
+        raise TypeError(f"Unsupported formula type: {type(formula).__name__}")
 
     return " ".join(term for term in terms if term)
