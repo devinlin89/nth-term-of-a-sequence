@@ -1,8 +1,14 @@
+from fractions import Fraction
+
 import streamlit as st
 
 from nth_term import find_nth_term, parse_sequence
 from nth_term.formulas import COEFFICIENT_NAMES, GENERAL_FORMULAS
-from nth_term.models import SequenceData, SequenceType
+from nth_term.models import (
+    NthTermResult,
+    SequenceData,
+    SequenceType,
+)
 
 
 def _apply_styles() -> None:
@@ -49,7 +55,7 @@ def _display_summary(
             st.markdown(f"### {len(sequence)}")
 
 
-def _display_formula(formula) -> None:
+def _display_formula(formula: str) -> None:
     """Display the calculated nth-term formula."""
 
     with st.container(border=True):
@@ -59,7 +65,7 @@ def _display_formula(formula) -> None:
 
 def _display_coefficients(
     sequence_type: SequenceType,
-    coefficients: tuple,
+    coefficients: tuple[Fraction, ...],
 ) -> None:
     """Display the coefficients of the nth-term formula."""
 
@@ -78,7 +84,10 @@ def _display_coefficients(
                 st.latex(rf"{name} = {value}")
 
 
-def _display_result(sequence: SequenceData, result) -> None:
+def _display_result(
+    sequence: SequenceData,
+    result: NthTermResult,
+) -> None:
     """Display the result of the sequence calculation."""
 
     sequence_type = result.sequence_type

@@ -8,14 +8,14 @@ from .models import (
     SequenceType,
 )
 
-GENERAL_FORMULAS = {
+GENERAL_FORMULAS: dict[SequenceType, str] = {
     SequenceType.LINEAR: r"U_n = an + b",
     SequenceType.QUADRATIC: r"U_n = an^2 + bn + c",
     SequenceType.CUBIC: r"U_n = an^3 + bn^2 + cn + d",
     SequenceType.EXPONENTIAL: r"U_n = ar^{n-1}",
 }
 
-COEFFICIENT_NAMES = {
+COEFFICIENT_NAMES: dict[SequenceType, tuple[str, ...]] = {
     SequenceType.LINEAR: ("a", "b"),
     SequenceType.QUADRATIC: ("a", "b", "c"),
     SequenceType.CUBIC: ("a", "b", "c", "d"),
