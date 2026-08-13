@@ -1,5 +1,6 @@
 from fractions import Fraction
 
+
 def nth_term(seq: list) -> str:
     # Finds nth term formula of a sequence.
 
@@ -177,7 +178,7 @@ def nth_term(seq: list) -> str:
 
         # If the first term of the sequence is 1, then it will not include it in the formula.
         if seq[0] == 1:
-            formula = formula = f"Un = {common_ratio}ⁿ ⁻ ¹"
+            formula = f"Un = {common_ratio}ⁿ ⁻ ¹"
         else:
             formula = f"Un = {change_int(seq[0])} x {common_ratio}ⁿ ⁻ ¹"
 
