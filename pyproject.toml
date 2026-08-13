@@ -29,3 +29,10 @@ target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[tool.poetry]
+name = "nth-term-of-a-sequence"
+version = "0.1.0"
+description = "..."
+authors = ["Devin Lin <...>"]
+packages = [{ include = "nth_term" }]
