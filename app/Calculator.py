@@ -1,21 +1,8 @@
 import streamlit as st
 
 from nth_term import find_nth_term, parse_sequence
+from nth_term.formulas import COEFFICIENT_NAMES, GENERAL_FORMULAS
 from nth_term.models import SequenceData, SequenceType
-
-GENERAL_FORMULAS = {
-    SequenceType.LINEAR: r"U_n = an + b",
-    SequenceType.QUADRATIC: r"U_n = an^2 + bn + c",
-    SequenceType.CUBIC: r"U_n = an^3 + bn^2 + cn + d",
-    SequenceType.EXPONENTIAL: r"U_n = ar^{n-1}",
-}
-
-COEFFICIENT_NAMES = {
-    SequenceType.LINEAR: ("a", "b"),
-    SequenceType.QUADRATIC: ("a", "b", "c"),
-    SequenceType.CUBIC: ("a", "b", "c", "d"),
-    SequenceType.EXPONENTIAL: ("a", "r"),
-}
 
 
 def _apply_styles() -> None:

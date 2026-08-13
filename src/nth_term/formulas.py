@@ -5,7 +5,22 @@ from .models import (
     LinearFormula,
     QuadraticFormula,
     SequenceData,
+    SequenceType,
 )
+
+GENERAL_FORMULAS = {
+    SequenceType.LINEAR: r"U_n = an + b",
+    SequenceType.QUADRATIC: r"U_n = an^2 + bn + c",
+    SequenceType.CUBIC: r"U_n = an^3 + bn^2 + cn + d",
+    SequenceType.EXPONENTIAL: r"U_n = ar^{n-1}",
+}
+
+COEFFICIENT_NAMES = {
+    SequenceType.LINEAR: ("a", "b"),
+    SequenceType.QUADRATIC: ("a", "b", "c"),
+    SequenceType.CUBIC: ("a", "b", "c", "d"),
+    SequenceType.EXPONENTIAL: ("a", "r"),
+}
 
 
 def calculate_linear_formula(
