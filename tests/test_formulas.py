@@ -3,6 +3,10 @@ from fractions import Fraction
 import pytest
 
 from nth_term.formulas import (
+    CubicFormula,
+    ExponentialFormula,
+    LinearFormula,
+    QuadraticFormula,
     calculate_cubic_formula,
     calculate_exponential_formula,
     calculate_linear_formula,
@@ -184,3 +188,134 @@ def test_calculate_exponential_formula(
 
     assert formula.a == a
     assert formula.r == r
+
+
+def test_linear_formula_coefficients():
+    formula = LinearFormula(
+        a=Fraction(3),
+        b=Fraction(-1),
+    )
+
+    assert formula.coefficients == (
+        Fraction(3),
+        Fraction(-1),
+    )
+
+
+def test_quadratic_formula_coefficients():
+    formula = QuadraticFormula(
+        a=Fraction(2),
+        b=Fraction(3),
+        c=Fraction(1),
+    )
+
+    assert formula.coefficients == (
+        Fraction(2),
+        Fraction(3),
+        Fraction(1),
+    )
+
+
+def test_cubic_formula_coefficients():
+    formula = CubicFormula(
+        a=Fraction(2),
+        b=Fraction(-1),
+        c=Fraction(3),
+        d=Fraction(-2),
+    )
+
+    assert formula.coefficients == (
+        Fraction(2),
+        Fraction(-1),
+        Fraction(3),
+        Fraction(-2),
+    )
+
+
+def test_exponential_formula_coefficients():
+    formula = ExponentialFormula(
+        a=Fraction(3),
+        r=Fraction(2),
+    )
+
+    assert formula.coefficients == (
+        Fraction(3),
+        Fraction(2),
+    )
+
+
+@pytest.mark.parametrize(
+    ("formula", "expected"),
+    [
+        (
+            LinearFormula(Fraction(3), Fraction(-1)),
+            r"3n - 1",
+        ),
+        (
+            LinearFormula(Fraction(-2), Fraction(5)),
+            r"-2n + 5",
+        ),
+        (
+            LinearFormula(Fraction(1, 2), Fraction(-3, 4)),
+            r"\frac{1}{2}n - \frac{3}{4}",
+        ),
+        (
+            QuadraticFormula(
+                Fraction(2),
+                Fraction(3),
+                Fraction(1),
+            ),
+            r"2n^2 + 3n + 1",
+        ),
+        (
+            QuadraticFormula(
+                Fraction(-1),
+                Fraction(0),
+                Fraction(4),
+            ),
+            r"-n^2 + 4",
+        ),
+        (
+            QuadraticFormula(
+                Fraction(1, 2),
+                Fraction(-3, 4),
+                Fraction(0),
+            ),
+            r"\frac{1}{2}n^2 - \frac{3}{4}n",
+        ),
+        (
+            CubicFormula(
+                Fraction(2),
+                Fraction(-1),
+                Fraction(3),
+                Fraction(-2),
+            ),
+            r"2n^3 - n^2 + 3n - 2",
+        ),
+        (
+            CubicFormula(
+                Fraction(1),
+                Fraction(0),
+                Fraction(0),
+                Fraction(0),
+            ),
+            r"n^3",
+        ),
+        (
+            ExponentialFormula(
+                Fraction(3),
+                Fraction(2),
+            ),
+            r"3\left(2\right)^{n-1}",
+        ),
+        (
+            ExponentialFormula(
+                Fraction(1, 2),
+                Fraction(1, 3),
+            ),
+            r"\frac{1}{2}\left(\frac{1}{3}\right)^{n-1}",
+        ),
+    ],
+)
+def test_formula_str(formula, expected: str):
+    assert str(formula) == expected
