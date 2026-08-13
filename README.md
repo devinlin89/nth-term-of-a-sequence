@@ -18,10 +18,10 @@ The calculator currently supports **linear, quadratic, cubic, and exponential se
 
 | Sequence Type   | General Form                        |
 | --------------- | ------------------------------------|
-| **Linear**      | $$(U_n = an + b)$$                  |
-| **Quadratic**   | $$(U_n = an^2 + bn + c)$$           |
-| **Cubic**       | $$(U_n = an^3 + bn^2 + cn + d)$$    |
-| **Exponential** | $$(U_n = ar^{n-1})$$                |
+| **Linear**      | $$U_n = an + b$$                    |
+| **Quadratic**   | $$U_n = an^2 + bn + c$$             |
+| **Cubic**       | $$U_n = an^3 + bn^2 + cn + d$$      |
+| **Exponential** | $$U_n = ar^{n-1}$$                  |
 
 
 ## Getting Started
@@ -144,7 +144,7 @@ nth-term-of-a-sequence/
 └── pyproject.toml          # Project and dependency configuration
 ```
 
-The project separates the **core mathematical logic** from the **Streamlit user interface**. The `src/nth_term` package contains the sequence parsing, detection, calculation, and formatting logic, while `app/` contains the web interface. Automated tests for the package are located in `tests/`.
+The project separates the **core mathematical logic** from the **Streamlit user interface**. The `src/nth_term` package handles sequence parsing, detection, calculation, and formatting, while `app/` contains the web interface. Automated tests are located in `tests/`.
 
 ## Technology
 
@@ -152,7 +152,6 @@ The project separates the **core mathematical logic** from the **Streamlit user 
 * **Streamlit:** Web application framework
 * **pytest:** Automated testing
 * **Ruff:** Linting and code quality
-* **setuptools:** Package building and installation
 
 ## Limitations
 
@@ -160,10 +159,9 @@ The calculator is designed to recognize only **linear, quadratic, cubic, and exp
 
 The calculator also requires a sufficient number of terms to establish a pattern. In particular:
 
-* Linear and exponential sequences require at least **3 terms**.
+* The calculator requires at least **3 terms** for linear and exponential sequence detection.
 * Quadratic sequences require at least **4 terms**.
 * Cubic sequences require at least **5 terms**.
-* Exponential sequences cannot contain **zero**, since a common ratio cannot be calculated when dividing by zero.
 
 ## Credits
 
