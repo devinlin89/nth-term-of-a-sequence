@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from itertools import pairwise
 
 from .differences import calculate_differences
@@ -70,27 +71,29 @@ def _is_geometric(sequence: SequenceData) -> bool:
     return all(ratio == common_ratio for ratio in ratios)
 
 
+type Detector = Callable[[SequenceData], bool]
+
+SEQUENCE_DETECTORS: tuple[tuple[SequenceType, Detector], ...] = (
+    (SequenceType.ARITHMETIC, _is_arithmetic),
+    (SequenceType.QUADRATIC, _is_quadratic),
+    (SequenceType.CUBIC, _is_cubic),
+    (SequenceType.GEOMETRIC, _is_geometric),
+)
+
+
 def detect_sequence_type(sequence: SequenceData) -> SequenceType:
     """Determine the type of a sequence.
 
     Args:
-        sequence (SequenceData): A sequence of numeric values to analyze
+        sequence (SequenceData): A sequence of numeric values to analyze.
 
     Returns:
         SequenceType: The detected type of the sequence
-            (ARITHMETIC, QUADRATIC, CUBIC, GEOMETRIC, or UNKNOWN)
+            (ARITHMETIC, QUADRATIC, CUBIC, GEOMETRIC, or UNKNOWN).
     """
 
-    if _is_arithmetic(sequence):
-        return SequenceType.ARITHMETIC
-
-    if _is_quadratic(sequence):
-        return SequenceType.QUADRATIC
-
-    if _is_cubic(sequence):
-        return SequenceType.CUBIC
-
-    if _is_geometric(sequence):
-        return SequenceType.GEOMETRIC
+    for sequence_type, detector in SEQUENCE_DETECTORS:
+        if detector(sequence):
+            return sequence_type
 
     return SequenceType.UNKNOWN
