@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "nth-term-of-a-sequence"
+version = "0.1.0"
+description = "Find the nth term of common mathematical sequences."
+requires-python = ">=3.14"
+dependencies = [
+    "streamlit",
+]
+
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
