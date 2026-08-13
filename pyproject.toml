@@ -35,4 +35,6 @@ name = "nth-term-of-a-sequence"
 version = "0.1.0"
 description = ""
 authors = ["Devin Lin <devinlin89@gmail.com>"]
-package-mode = false
+packages = [
+    { include = "nth_term", from = "src" }
+]
