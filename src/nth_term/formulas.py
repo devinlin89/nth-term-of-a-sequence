@@ -82,23 +82,24 @@ class ExponentialFormula:
 
     def __str__(self) -> str:
         return (
-            f"{format_fraction(self.a)}"
-            f"\\left({format_fraction(self.r)}\\right)^{{n-1}}"
+            f"{format_fraction(self.a)}\\left({format_fraction(self.r)}\\right)^{{n-1}}"
         )
 
 
-type Formula = (
-    LinearFormula
-    | QuadraticFormula
-    | CubicFormula
-    | ExponentialFormula
-)
+type Formula = LinearFormula | QuadraticFormula | CubicFormula | ExponentialFormula
 
 
 def calculate_linear_formula(
     sequence: SequenceData,
 ) -> LinearFormula:
-    """Calculate the nth-term formula for a linear sequence."""
+    """Calculate the nth-term formula for a linear sequence.
+
+    Args:
+        sequence (SequenceData): A sequence with constant first differences.
+
+    Returns:
+        LinearFormula: The coefficients of the linear nth-term formula.
+    """
 
     differences = calculate_differences(sequence)
     common_difference = differences[0]
@@ -115,7 +116,14 @@ def calculate_linear_formula(
 def calculate_quadratic_formula(
     sequence: SequenceData,
 ) -> QuadraticFormula:
-    """Calculate the nth-term formula for a quadratic sequence."""
+    """Calculate the nth-term formula for a quadratic sequence.
+
+    Args:
+        sequence (SequenceData): A sequence with constant second differences.
+
+    Returns:
+        QuadraticFormula: The coefficients of the quadratic nth-term formula.
+    """
 
     first_differences = calculate_differences(sequence)
     second_differences = calculate_differences(first_differences)
@@ -134,7 +142,14 @@ def calculate_quadratic_formula(
 def calculate_cubic_formula(
     sequence: SequenceData,
 ) -> CubicFormula:
-    """Calculate the nth-term formula for a cubic sequence."""
+    """Calculate the nth-term formula for a cubic sequence.
+
+    Args:
+        sequence (SequenceData): A sequence with constant third differences.
+
+    Returns:
+        CubicFormula: The coefficients of the cubic nth-term formula.
+    """
 
     first_differences = calculate_differences(sequence)
     second_differences = calculate_differences(first_differences)
@@ -156,7 +171,14 @@ def calculate_cubic_formula(
 def calculate_exponential_formula(
     sequence: SequenceData,
 ) -> ExponentialFormula:
-    """Calculate the nth-term formula for an exponential sequence."""
+    """Calculate the nth-term formula for an exponential sequence.
+
+    Args:
+        sequence (SequenceData): A sequence with constant common ratio.
+
+    Returns:
+        ExponentialFormula: The coefficients of the exponential nth-term formula.
+    """
 
     first_term = sequence[0]
     common_ratio = sequence[1] / sequence[0]

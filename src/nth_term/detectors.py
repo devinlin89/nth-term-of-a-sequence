@@ -18,10 +18,7 @@ def _is_linear(sequence: SequenceData) -> bool:
 
     common_difference = first_differences[0]
 
-    return all(
-        difference == common_difference
-        for difference in first_differences
-    )
+    return all(difference == common_difference for difference in first_differences)
 
 
 def _is_quadratic(sequence: SequenceData) -> bool:
@@ -36,10 +33,7 @@ def _is_quadratic(sequence: SequenceData) -> bool:
 
     common_difference = second_differences[0]
 
-    return all(
-        difference == common_difference
-        for difference in second_differences
-    )
+    return all(difference == common_difference for difference in second_differences)
 
 
 def _is_cubic(sequence: SequenceData) -> bool:
@@ -55,10 +49,7 @@ def _is_cubic(sequence: SequenceData) -> bool:
 
     common_difference = third_differences[0]
 
-    return all(
-        difference == common_difference
-        for difference in third_differences
-    )
+    return all(difference == common_difference for difference in third_differences)
 
 
 def _is_exponential(sequence: SequenceData) -> bool:
@@ -72,21 +63,23 @@ def _is_exponential(sequence: SequenceData) -> bool:
     if 0 in sequence:
         return False
 
-    ratios = tuple(
-        current / previous
-        for previous, current in pairwise(sequence)
-    )
+    ratios = tuple(current / previous for previous, current in pairwise(sequence))
 
     common_ratio = ratios[0]
 
-    return all(
-        ratio == common_ratio
-        for ratio in ratios
-    )
+    return all(ratio == common_ratio for ratio in ratios)
 
 
 def detect_sequence_type(sequence: SequenceData) -> SequenceType:
-    """Determine the type of a sequence."""
+    """Determine the type of a sequence.
+
+    Args:
+        sequence (SequenceData): A sequence of numeric values to analyze
+
+    Returns:
+        SequenceType: The detected type of the sequence
+            (LINEAR, QUADRATIC, CUBIC, EXPONENTIAL, or UNKNOWN)
+    """
 
     if _is_linear(sequence):
         return SequenceType.LINEAR
