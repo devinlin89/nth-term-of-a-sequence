@@ -2,6 +2,8 @@
 
 A Python-based tool that identifies common sequence types and calculates their nth-term formulas.
 
+[**Try it online →**](https://nth-term-of-a-sequence.streamlit.app/)
+
 [![Nth Term of a Sequence](docs/img/nth_term_screenshot.png)](docs/img/nth_term_screenshot.png)
 
 The calculator currently supports **linear, quadratic, cubic, and exponential sequences**. It combines a Python calculation library with a simple Streamlit web interface.
