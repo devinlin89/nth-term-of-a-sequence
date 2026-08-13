@@ -16,8 +16,13 @@ from .models import (
 def find_nth_term(sequence: SequenceData) -> NthTermResult:
     """Determine the sequence type and calculate its nth-term formula.
 
-    Returns an empty formula and coefficient tuple when the sequence
-    type cannot be determined.
+    Args:
+        sequence (SequenceData): The sequence of terms to analyze.
+
+    Returns:
+        NthTermResult: The detected sequence type, nth-term formula in LaTeX,
+        and formula coefficients. If the sequence type is unknown, the
+        formula is None and the coefficients are empty.
     """
 
     sequence_type = detect_sequence_type(sequence)
